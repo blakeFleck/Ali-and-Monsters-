@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+	<div class="game">
+
+		<div id="blake">
+			<text>Blake</text><br>
+			<progress id="blakehealth" value=100 max="100"></progress><br>
+			<progress id="blakeexp" value="0" max="100"></progress><br>
+
+			<button id="blakeattacks">Attack Ali</button>
+			<button id="blakeatkmonster">Attack Monster</button><br>
+			<button id="blakespotion">Potion (heal 40)</button> 
+
+		</div>
+
+		<div id="ali">
+			<text>Ali</text><br>
+			<progress id="alihealth" value="100" max="100"></progress><br>
+			<progress id="aliexp" value="0" max="100"></progress><br>
+
+			<button id="aliattacks">Attack Blake</button>
+			<button id="aliatkmonster">Attack Monster</button><br>
+			<button id="alispotion">Potion (heal 40)</button> 
+		</div>
+	</div>
+
+
+<p></p>
+	<script src=functions.js> </script>
+	<script src=jquery.js></script>
+	 <link rel="stylesheet" href="./game.css">
+
+	<script>
+
+	$("button#blakeattacks").click(function(){
+
+
+		blake.attack(ali);
+		var amount = document.getElementById("alihealth").value - ali.health;
+
+		var string = "Blake attacked Ali for "+amount+ " damage";
+
+		$("p").append("<text>"+string+"</text><br>")
+		document.getElementById("alihealth").value = ali.health;
+		if(ali.health<0){
+			alert("game over")
+		}
+
+
+	});
+	$("button#aliattacks").click(function(){
+
+		ali.attack(blake);
+		var amount = document.getElementById("blakehealth").value - blake.health;
+
+		var string = "Ali attacked Blake for "+amount+ " damage";
+
+		$("p").append("<text>"+string+"</text><br>")
+		document.getElementById("blakehealth").value = blake.health;
+
+	});
+	$("button#blakeatkmonster").click(function(){
+
+		blake.attackMonster();
+
+		var whichMonster = document.getElementById("blakehealth").value - blake.health;
+		var string = "Blake killed a monster, and took "+whichMonster+" damage";
+		document.getElementById("blakehealth").value = blake.health;
+		document.getElementById("blakeexp").value = blake.exp;
+
+		$("p").append("<text>"+string+"</text><br>")
+
+
+
+	})
+	$("button#blakespotion").click(function(){
+		blake.healPotion();
+		document.getElementById("blakehealth").value = blake.health;
+		$("p").append("<text>Blake heals for 40 Health</text><br>")
+	})
+
+
+
+	
+	</script>
+</body>
+</html>
